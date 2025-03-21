@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Shader Fun</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+
+    <script type="text/javascript" src="js/glsl-canvas.min.js"></script>
+</head>
+
+<body>
+    <canvas class="glsl-canvas" data-fragment-url="shaders/00_color.frag"></canvas>
+
+    <script>
+        const canvas = document.querySelector('canvas');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        const urlParams = new URLSearchParams(window.location.search);
+        const shaderFile = urlParams.get('shader');
+        var the_glsl = null;
+        if (shaderFile) {
+            const options = {
+                alpha: false,
+                antialias: true,
+                mode: 'flat',
+                powerPreference: 'low-power'
+            };
+            the_glsl = new glsl.Canvas(canvas, options);
+            fetch(shaderFile)
+                .then(response => {
+                    if (!response.ok) {
+                        const likely_path = `/shaders/${shaderFile}`
+                        console.log(`First attempt failed: ${shaderFile}, trying modified path: ${likely_path}`);
+                        return fetch(likely_path);
+                    }
+                    return response;
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(shaderCode => {
+                    // console.log(shaderCode);
+                    the_glsl.load(shaderCode);
+                })
+                .catch(error => {
+                    console.error('Error loading shader:', error);
+                });
+        }
+    </script>
+</body>
+
+</html>
