@@ -2,7 +2,7 @@
 precision mediump float;
 
 /**
- * \file
+ * \file 01_shaping.frag
  * \author Huiuk Jang
  * \date 2025 Spring
  * \par CS250 Computer Graphics II

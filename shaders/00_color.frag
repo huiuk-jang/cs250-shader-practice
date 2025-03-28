@@ -2,7 +2,7 @@
 precision mediump float;
 
 /**
- * \file
+ * \file 00_color.frag
  * \author Rudy Castan
  * \author THuiuk Jang
  * \date 2025 Spring
