@@ -41,5 +41,5 @@ void main(){
     // and the Saturation to the radius
     color = hsb2rgb(vec3((angle/TWO_PI)+0.5,radius,1.0));
 
-    FragColorp = vec4(color,1.0);
+    FragColor = vec4(color,1.0);
 }
