@@ -1,3 +1,4 @@
+#version 300 es
 /**
  * \file 03_hsv.frag
  * \author Huiuk Jang
@@ -8,6 +9,8 @@
 #ifdef GL_ES
 precision mediump float;
 #endif
+
+out vec4 FragColor;
 
 #define TWO_PI 6.28318530718
 
@@ -38,5 +41,5 @@ void main(){
     // and the Saturation to the radius
     color = hsb2rgb(vec3((angle/TWO_PI)+0.5,radius,1.0));
 
-    gl_FragColor = vec4(color,1.0);
+    FragColorp = vec4(color,1.0);
 }

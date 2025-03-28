@@ -1,3 +1,4 @@
+#version 300 es
 /**
  * \file 02_gradient.frag
  * \author Huiuk Jang
@@ -8,6 +9,8 @@
 #ifdef GL_ES
 precision mediump float;
 #endif
+
+out vec4 FragColor;
 
 #define PI 3.14159265359
 
@@ -40,5 +43,5 @@ void main() {
     color = mix(color,vec3(0.0,1.0,0.0),plot(st,pct.g));
     color = mix(color,vec3(0.0,0.0,1.0),plot(st,pct.b));
 
-    gl_FragColor = vec4(color,1.0);
+    FragColor = vec4(color,1.0);
 }
